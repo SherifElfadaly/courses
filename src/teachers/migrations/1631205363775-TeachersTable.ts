@@ -1,10 +1,10 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import {MigrationInterface, QueryRunner, Table, TableForeignKey} from "typeorm";
 
-export class UsersTable1631192634395 implements MigrationInterface {
+export class TeachersTable1631205363775 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: 'users',
+            name: 'teachers',
             columns: [
                 {
                     name: 'id',
@@ -15,15 +15,15 @@ export class UsersTable1631192634395 implements MigrationInterface {
                     unsigned: true,
                 },
                 {
-                    name: 'email',
+                    name: 'name',
                     type: 'varchar',
-                    isUnique: true,
                     isNullable: false,
                 },
                 {
-                    name: 'password',
-                    type: 'varchar',
+                    name: 'user_id',
+                    type: 'int',
                     isNullable: false,
+                    unsigned: true,
                 },
                 {
                     name: 'created_at',
@@ -41,11 +41,20 @@ export class UsersTable1631192634395 implements MigrationInterface {
                     isNullable: true
                 }
             ]
-        }), true);
+        }));
+
+        await queryRunner.createForeignKey('teachers', new TableForeignKey({
+            columnNames: ['user_id'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'users',
+        }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('users');
+        const table = await queryRunner.getTable('teachers');
+        const foreignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf('user_id') !== -1);
+        await queryRunner.dropForeignKey('teachers', foreignKey);
+        await queryRunner.dropTable('teachers');
     }
 
 }

@@ -1,4 +1,5 @@
 import { registerAs } from "@nestjs/config";
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 export default registerAs('database', () => ({
     type: 'mysql',
@@ -7,6 +8,7 @@ export default registerAs('database', () => ({
     username: process.env.DB_USERNAME || 'root',
     password: process.env.DB_PASSWORD || '',
     database: process.env.DB_DATABASE || '',
-    entities: ["src/**/*.entity.ts"],
-    migrations: ['src/**/migrations/*{.ts,.js}'],
+    entities: ["dist/**/*.entity.js"],
+    migrations: ['dist/**/migrations/*.js'],
+    namingStrategy: new SnakeNamingStrategy(),
 }));

@@ -5,12 +5,13 @@ import { TeachersModule } from './teachers/teachers.module';
 import { StudentsModule } from './students/students.module';
 import { CoursesModule } from './courses/courses.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import app from './config/app.config';
-import database from './config/database.config';
+import { ScoresModule } from './scores/scores.module';
+import appConfig from './config/app.config';
+import databaseConfig from './config/database.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [app, database] }),
+    ConfigModule.forRoot({ load: [appConfig, databaseConfig] }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => (configService.get('database')),
@@ -19,7 +20,8 @@ import database from './config/database.config';
     UsersModule,
     TeachersModule,
     StudentsModule,
-    CoursesModule
+    CoursesModule,
+    ScoresModule,
   ],
   controllers: [],
   providers: [],

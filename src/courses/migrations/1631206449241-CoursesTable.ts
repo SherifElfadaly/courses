@@ -1,10 +1,10 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableForeignKey } from "typeorm";
 
-export class UsersTable1631192634395 implements MigrationInterface {
+export class CoursesTable1631206449241 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: 'users',
+            name: 'courses',
             columns: [
                 {
                     name: 'id',
@@ -15,15 +15,22 @@ export class UsersTable1631192634395 implements MigrationInterface {
                     unsigned: true,
                 },
                 {
-                    name: 'email',
+                    name: 'name',
                     type: 'varchar',
-                    isUnique: true,
                     isNullable: false,
                 },
                 {
-                    name: 'password',
+                    name: 'code',
                     type: 'varchar',
                     isNullable: false,
+                    isUnique: true,
+                    length: '7',
+                },
+                {
+                    name: 'teacher_id',
+                    type: 'int',
+                    isNullable: false,
+                    unsigned: true,
                 },
                 {
                     name: 'created_at',
@@ -41,11 +48,20 @@ export class UsersTable1631192634395 implements MigrationInterface {
                     isNullable: true
                 }
             ]
-        }), true);
+        }));
+
+        await queryRunner.createForeignKey('courses', new TableForeignKey({
+            columnNames: ['teacher_id'],
+            referencedColumnNames: ['id'],
+            referencedTableName: 'teachers',
+        }));
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('users');
+        const table = await queryRunner.getTable('courses');
+        const foreignKey = table.foreignKeys.find(fk => fk.columnNames.indexOf('teacher_id') !== -1);
+        await queryRunner.dropForeignKey('courses', foreignKey);
+        await queryRunner.dropTable('courses');
     }
 
 }
