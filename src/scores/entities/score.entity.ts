@@ -1,6 +1,7 @@
 import { Course } from 'src/courses/entities/course.entity';
 import { Student } from 'src/students/entities/student.entity';
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -21,6 +22,12 @@ export class Score {
   @Column()
   pass: boolean;
 
+  @Column()
+  course_id: number;
+
+  @Column()
+  student_id: number;
+
   @CreateDateColumn()
   created_at: Date;
 
@@ -29,6 +36,11 @@ export class Score {
 
   @DeleteDateColumn()
   deleted_at: Date;
+
+  @BeforeInsert()
+  async setPass(pass: boolean) {
+    this.pass = this.grade > 50;
+  }
 
   @ManyToOne(() => Course, (course) => course.scores)
   course: Course;

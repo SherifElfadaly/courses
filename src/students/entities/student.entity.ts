@@ -32,7 +32,7 @@ export class Student {
   deleted_at: Date;
 
   @BeforeInsert()
-  async setPassword(code: string) {
+  async setCode(code: string) {
     this.code = code || uuidv4();
   }
 

@@ -1,6 +1,7 @@
 import { Score } from 'src/scores/entities/score.entity';
 import { Teacher } from 'src/teachers/entities/teacher.entity';
 import {
+  BeforeInsert,
   Column,
   CreateDateColumn,
   DeleteDateColumn,
@@ -30,6 +31,11 @@ export class Course {
 
   @DeleteDateColumn()
   deleted_at: Date;
+
+  @BeforeInsert()
+  async setCode(code: string) {
+    this.code = code || this.name.substring(0,3).toUpperCase() + new Date().getFullYear();
+  }
 
   @ManyToOne(() => Teacher, (teacher) => teacher.courses)
   teacher: Teacher;
