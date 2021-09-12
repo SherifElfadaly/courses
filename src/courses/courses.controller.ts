@@ -1,14 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-  Request,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Post, Request, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CoursesService } from './courses.service';
 
@@ -19,6 +9,6 @@ export class CoursesController {
   @UseGuards(JwtAuthGuard)
   @Post('upload/grades')
   async uploadGrades(@Request() req) {
-    return 'success';
+    return req.user;
   }
 }
