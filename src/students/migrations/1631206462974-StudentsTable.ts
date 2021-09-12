@@ -24,8 +24,6 @@ export class StudentsTable1631206462974 implements MigrationInterface {
                     type: 'varchar',
                     isNullable: false,
                     isUnique: true,
-                    isGenerated: true,
-                    generationStrategy: 'uuid',
                 },
                 {
                     name: 'created_at',

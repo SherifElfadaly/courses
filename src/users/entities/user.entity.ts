@@ -1,6 +1,8 @@
 
 import { Teacher } from "src/teachers/entities/teacher.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import * as bcrypt from 'bcrypt';
+import { Exclude } from 'class-transformer';
 
 @Entity({name: 'users'})
 export class User {
@@ -11,6 +13,7 @@ export class User {
     email: string;
 
     @Column()
+    @Exclude()
     password: string;
 
     @CreateDateColumn()
@@ -21,6 +24,12 @@ export class User {
 
     @DeleteDateColumn()
     deleted_at: Date;
+
+    @BeforeInsert()
+    async setPassword(password: string) {
+        const salt = await bcrypt.genSalt();
+        this.password = await bcrypt.hash(password || this.password, salt);
+    }
 
     @OneToOne(() => Teacher, teacher => teacher.user)
     teacher: Teacher;

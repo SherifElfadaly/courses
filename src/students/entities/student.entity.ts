@@ -1,5 +1,6 @@
 import { Score } from "src/scores/entities/score.entity";
-import { Column, CreateDateColumn, DeleteDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, DeleteDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { v4 as uuidv4 } from 'uuid';
 
 @Entity({name: 'students'})
 export class Student {
@@ -20,6 +21,11 @@ export class Student {
 
     @DeleteDateColumn()
     deleted_at:Date;
+
+    @BeforeInsert()
+    async setPassword(code: string) {
+        this.code = code || uuidv4();
+    }
 
     @OneToMany(() => Score, score => score.student)
     scores: Score;

@@ -6,12 +6,14 @@ import { StudentsModule } from './students/students.module';
 import { CoursesModule } from './courses/courses.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { ScoresModule } from './scores/scores.module';
+import { AuthModule } from './auth/auth.module';
 import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
+import authConfig from './config/auth.config';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [appConfig, databaseConfig] }),
+    ConfigModule.forRoot({ load: [appConfig, databaseConfig, authConfig] }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) => (configService.get('database')),
@@ -22,6 +24,7 @@ import databaseConfig from './config/database.config';
     StudentsModule,
     CoursesModule,
     ScoresModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

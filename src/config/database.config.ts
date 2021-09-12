@@ -10,5 +10,7 @@ export default registerAs('database', () => ({
     database: process.env.DB_DATABASE || '',
     entities: ["dist/**/*.entity.js"],
     migrations: ['dist/**/migrations/*.js'],
+    seeds: ['dist/**/seeders/*.js'],
+    factories: ['dist/**/factories/*.js'],
     namingStrategy: new SnakeNamingStrategy(),
 }));
