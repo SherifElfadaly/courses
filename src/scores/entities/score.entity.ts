@@ -38,7 +38,7 @@ export class Score {
   deleted_at: Date;
 
   @BeforeInsert()
-  async setPass(pass: boolean) {
+  async setPass() {
     this.pass = this.grade > 50;
   }
 

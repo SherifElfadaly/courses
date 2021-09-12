@@ -34,7 +34,9 @@ export class Course {
 
   @BeforeInsert()
   async setCode(code: string) {
-    this.code = code || this.name.substring(0,3).toUpperCase() + new Date().getFullYear();
+    this.code =
+      code ||
+      this.name.substring(0, 3).toUpperCase() + new Date().getFullYear();
   }
 
   @ManyToOne(() => Teacher, (teacher) => teacher.courses)

@@ -1,4 +1,12 @@
-import { Body, Controller, Param, Post, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Param,
+  Post,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CoursesService } from './courses.service';
@@ -11,7 +19,15 @@ export class CoursesController {
   @UseGuards(JwtAuthGuard)
   @Post('/:id/upload/grades')
   @UseInterceptors(FileInterceptor('sheet'))
-  async uploadGrades(@UploadedFile() sheet: Express.Multer.File, @Body() uploadGradesDto: UploadGradesDto, @Param() params) {
-    return this.coursesService.importGrades(params.id, sheet, uploadGradesDto.email);
+  async uploadGrades(
+    @UploadedFile() sheet: Express.Multer.File,
+    @Body() uploadGradesDto: UploadGradesDto,
+    @Param() params,
+  ) {
+    return this.coursesService.importGrades(
+      params.id,
+      sheet,
+      uploadGradesDto.email,
+    );
   }
 }

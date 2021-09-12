@@ -14,7 +14,7 @@ import { StudentsModule } from 'src/students/students.module';
     ScoresModule,
     TypeOrmModule.forFeature([Course]),
     BullModule.registerQueue({
-      name: 'import-grades'
+      name: 'import-grades',
     }),
   ],
   controllers: [CoursesController],

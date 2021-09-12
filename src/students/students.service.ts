@@ -5,12 +5,12 @@ import { Student } from './entities/student.entity';
 
 @Injectable()
 export class StudentsService {
-    constructor(
-        @InjectRepository(Student)
-        private scoresRepository: Repository<Student>,
-    ) { }
+  constructor(
+    @InjectRepository(Student)
+    private scoresRepository: Repository<Student>,
+  ) {}
 
-    async findByCode(code: string): Promise<Student | undefined> {
-        return this.scoresRepository.findOne({ where: { code: code } });
-    }
+  async findByCode(code: string): Promise<Student | undefined> {
+    return this.scoresRepository.findOne({ where: { code: code } });
+  }
 }

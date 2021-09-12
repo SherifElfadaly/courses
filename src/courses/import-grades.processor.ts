@@ -6,26 +6,26 @@ import { StudentsService } from 'src/students/students.service';
 
 @Processor('import-grades')
 export class ImportGradesProcessor {
-    constructor(
-        private scoresService: ScoresService,
-        private studentsService: StudentsService
-    ) { }
+  constructor(
+    private scoresService: ScoresService,
+    private studentsService: StudentsService,
+  ) {}
 
-    private readonly logger = new Logger(ImportGradesProcessor.name);
+  private readonly logger = new Logger(ImportGradesProcessor.name);
 
-    @Process()
-    async import(job: Job<unknown>) {
-        this.logger.debug('Start importing...');
-        for (const grade of job.data['grades']) {
-            const student = await this.studentsService.findByCode(grade.id);
-            this.scoresService.create({
-                course_id: job.data['courseId'],
-                student_id: student.id,
-                grade: grade.grade,
-            });
-        }
-        this.logger.debug('Importing completed');
-
-        return {};
+  @Process()
+  async import(job: Job<unknown>) {
+    this.logger.debug('Start importing...');
+    for (const grade of job.data['grades']) {
+      const student = await this.studentsService.findByCode(grade.id);
+      this.scoresService.create({
+        course_id: job.data['courseId'],
+        student_id: student.id,
+        grade: grade.grade,
+      });
     }
+    this.logger.debug('Importing completed');
+
+    return {};
+  }
 }

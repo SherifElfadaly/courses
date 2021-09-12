@@ -9,7 +9,7 @@ export class ScoresService {
   constructor(
     @InjectRepository(Score)
     private scoresRepository: Repository<Score>,
-  ) { }
+  ) {}
 
   findAll(): Promise<Score[]> {
     return this.scoresRepository.find();

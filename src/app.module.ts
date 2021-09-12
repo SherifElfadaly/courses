@@ -15,7 +15,9 @@ import { BullModule } from '@nestjs/bull';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ load: [appConfig, databaseConfig, authConfig, cacheConfig] }),
+    ConfigModule.forRoot({
+      load: [appConfig, databaseConfig, authConfig, cacheConfig],
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) =>
@@ -24,8 +26,7 @@ import { BullModule } from '@nestjs/bull';
     }),
     BullModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) =>
-        configService.get('cache'),
+      useFactory: (configService: ConfigService) => configService.get('cache'),
       inject: [ConfigService],
     }),
     UsersModule,
