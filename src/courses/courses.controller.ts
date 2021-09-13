@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Param,
@@ -18,7 +19,17 @@ export class CoursesController {
 
   @UseGuards(JwtAuthGuard)
   @Post('/:id/upload/grades')
-  @UseInterceptors(FileInterceptor('sheet'))
+  @UseInterceptors(
+    FileInterceptor('sheet', {
+      fileFilter: function (req, file, cb) {
+        if (!file.originalname.match(/\.(xlsx|xls)$/)) {
+          return cb(new BadRequestException('Extension not allowed'), false);
+        }
+
+        cb(null, true);
+      },
+    }),
+  )
   async uploadGrades(
     @UploadedFile() sheet: Express.Multer.File,
     @Body() uploadGradesDto: UploadGradesDto,

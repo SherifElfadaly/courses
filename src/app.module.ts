@@ -12,6 +12,7 @@ import databaseConfig from './config/database.config';
 import authConfig from './config/auth.config';
 import cacheConfig from './config/cache.config';
 import { BullModule } from '@nestjs/bull';
+import { QueueModule } from './queue/queue.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { BullModule } from '@nestjs/bull';
     CoursesModule,
     ScoresModule,
     AuthModule,
+    QueueModule,
   ],
   controllers: [],
   providers: [],
