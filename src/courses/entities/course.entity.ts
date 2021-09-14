@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  getRepository,
   ManyToOne,
   OneToMany,
   PrimaryGeneratedColumn,
@@ -33,10 +34,15 @@ export class Course {
   deleted_at: Date;
 
   @BeforeInsert()
-  async setCode(code: string) {
-    this.code =
-      code ||
-      this.name.substring(0, 3).toUpperCase() + new Date().getFullYear();
+  async setCode(code: string, char: string = '') {
+    char = char ? char : this.name.substring(0, 3).toUpperCase();
+    this.code = code || char + new Date().getFullYear();
+    const codeExists = await getRepository(Course).count({ where: { code: this.code } });
+
+    if (codeExists) {
+      char = Math.random().toString(36).substring(2,5).toUpperCase();
+      this.setCode('', char);
+    }
   }
 
   @ManyToOne(() => Teacher, (teacher) => teacher.courses)
