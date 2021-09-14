@@ -1,8 +1,8 @@
 import { Processor, Process } from '@nestjs/bull';
 import { ConfigService } from '@nestjs/config';
 import { Job } from 'bull';
-import { MailService } from 'src/mail/mail.service';
-import { ScoresService } from 'src/scores/scores.service';
+import { MailService } from '../../mail/mail.service';
+import { ScoresService } from '../../scores/scores.service';
 
 @Processor('import-grades')
 export class ImportGradesProcessor {

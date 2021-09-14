@@ -1,0 +1,36 @@
+version: '3.2'
+
+services:
+    courses_mysql:
+      container_name: 'courses_mysql'
+      image: mysql:5.7
+      volumes:
+        - ./run/var:/var/lib/mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${DB_DATABASE}
+        - MYSQL_USER=${DB_USERNAME}
+        - MYSQL_PASSWORD=${DB_PASSWORD}
+      ports:
+        - "${MYSQL_EXTERNAL_PORT}:${DB_PORT}"
+      restart: always
+
+    courses_redis:
+      container_name: 'courses_redis'
+      image: redis:alpine
+      ports:
+        - "${REDIS_EXTERNAL_PORT}:${REDIS_PORT}"
+      restart: always
+      
+    courses_app:
+      container_name: 'courses'
+      build: .
+      links:
+        - "courses_mysql"
+        - "courses_redis"
+      depends_on:
+        - "courses_mysql"
+        - "courses_redis"
+      ports:
+        - "${APP_EXTERNAL_PORT}:${APP_PORT}"
+      restart: always

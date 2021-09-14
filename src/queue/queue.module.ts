@@ -1,8 +1,8 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { MailModule } from 'src/mail/mail.module';
-import { ScoresModule } from 'src/scores/scores.module';
+import { MailModule } from '../mail/mail.module';
+import { ScoresModule } from '../scores/scores.module';
 import { ImportGradesProcessor } from './consumers/import-grades.processor';
 import { QueueController } from './queue.controller';
 import { QueueService } from './queue.service';

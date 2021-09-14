@@ -4,7 +4,7 @@ import { Course } from './entities/course.entity';
 import { Queue } from 'bull';
 import { InjectQueue } from '@nestjs/bull';
 import * as XLSX from 'xlsx';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class CoursesService {

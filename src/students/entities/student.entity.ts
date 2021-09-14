@@ -1,4 +1,4 @@
-import { Score } from 'src/scores/entities/score.entity';
+import { Score } from '../../scores/entities/score.entity';
 import {
   BeforeInsert,
   Column,

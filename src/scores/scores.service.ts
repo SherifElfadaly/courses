@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Job } from 'bull';
-import { Student } from 'src/students/entities/student.entity';
-import { StudentsService } from 'src/students/students.service';
+import { Student } from '../students/entities/student.entity';
+import { StudentsService } from '../students/students.service';
 import { Repository } from 'typeorm';
 import { CreateScoreDto } from './dto/create-score.dto';
 import { ImportGradesDto } from './dto/import-grades.dto';

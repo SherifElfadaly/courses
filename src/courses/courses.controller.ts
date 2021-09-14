@@ -9,8 +9,8 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { ParseExcelFilePipe } from 'src/parse-excel-file.pipe';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { ParseExcelFilePipe } from '../parse-excel-file.pipe';
 import { CoursesService } from './courses.service';
 import { UploadGradesDto } from './dto/upload-grades.dto';
 import { ApiBody, ApiConsumes, ApiTags, ApiBearerAuth } from '@nestjs/swagger';

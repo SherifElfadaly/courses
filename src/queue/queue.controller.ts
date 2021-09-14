@@ -1,6 +1,6 @@
 import { Controller, Get, Param, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { MailService } from 'src/mail/mail.service';
+import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { MailService } from '../mail/mail.service';
 import { QueueService } from './queue.service';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 

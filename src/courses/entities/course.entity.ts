@@ -1,5 +1,5 @@
-import { Score } from 'src/scores/entities/score.entity';
-import { Teacher } from 'src/teachers/entities/teacher.entity';
+import { Score } from '../../scores/entities/score.entity';
+import { Teacher } from '../../teachers/entities/teacher.entity';
 import {
   BeforeInsert,
   Column,

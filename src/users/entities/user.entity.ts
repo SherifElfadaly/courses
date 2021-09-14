@@ -1,4 +1,4 @@
-import { Teacher } from 'src/teachers/entities/teacher.entity';
+import { Teacher } from '../../teachers/entities/teacher.entity';
 import {
   BeforeInsert,
   Column,

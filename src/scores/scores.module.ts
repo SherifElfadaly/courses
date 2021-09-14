@@ -3,7 +3,7 @@ import { ScoresService } from './scores.service';
 import { ScoresController } from './scores.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Score } from './entities/score.entity';
-import { StudentsModule } from 'src/students/students.module';
+import { StudentsModule } from '../students/students.module';
 
 @Module({
   imports: [StudentsModule, TypeOrmModule.forFeature([Score])],
