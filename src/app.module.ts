@@ -11,23 +11,19 @@ import appConfig from './config/app.config';
 import databaseConfig from './config/database.config';
 import authConfig from './config/auth.config';
 import cacheConfig from './config/cache.config';
-import { BullModule } from '@nestjs/bull';
 import { QueueModule } from './queue/queue.module';
+import { MailModule } from './mail/mail.module';
+import mailConfig from './config/mail.config';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      load: [appConfig, databaseConfig, authConfig, cacheConfig],
+      load: [appConfig, databaseConfig, authConfig, cacheConfig, mailConfig],
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: (configService: ConfigService) =>
         configService.get('database'),
-      inject: [ConfigService],
-    }),
-    BullModule.forRootAsync({
-      imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => configService.get('cache'),
       inject: [ConfigService],
     }),
     UsersModule,
@@ -37,6 +33,7 @@ import { QueueModule } from './queue/queue.module';
     ScoresModule,
     AuthModule,
     QueueModule,
+    MailModule,
   ],
   controllers: [],
   providers: [],

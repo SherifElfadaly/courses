@@ -40,5 +40,5 @@ export class User {
   }
 
   @OneToOne(() => Teacher, (teacher) => teacher.user)
-  teacher: Teacher;
+  teacher: Promise<Teacher>;
 }

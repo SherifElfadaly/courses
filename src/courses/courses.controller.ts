@@ -4,6 +4,7 @@ import {
   Controller,
   Param,
   Post,
+  Request,
   UploadedFile,
   UseGuards,
   UseInterceptors,
@@ -34,10 +35,12 @@ export class CoursesController {
     @UploadedFile() sheet: Express.Multer.File,
     @Body() uploadGradesDto: UploadGradesDto,
     @Param() params,
+    @Request() req,
   ) {
     return this.coursesService.importGrades(
       params.id,
       sheet,
+      req.user.id,
       uploadGradesDto.email,
     );
   }
