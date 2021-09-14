@@ -16,7 +16,8 @@ export class QueueService {
       progress: job.progress(),
       completed: await job.isCompleted(),
       failed: await job.isFailed(),
-      failedReason: await job.failedReason,
+      failedReason: job.failedReason,
+      errors: job.data.errors || [],
     };
   }
 }

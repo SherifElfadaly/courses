@@ -13,10 +13,6 @@ export class QueueController {
   @UseGuards(JwtAuthGuard)
   @Get('/job/:id')
   async checkJobProgress(@Param() params) {
-    this.mailService.sendMail('sh.elfadaly@gmail.com', 'upload-grades', ``, {
-      url: '',
-    });
-
     return this.queueService.checkJobProgress(params.id);
   }
 }

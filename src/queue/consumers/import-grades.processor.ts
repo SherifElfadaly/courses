@@ -23,7 +23,9 @@ export class ImportGradesProcessor {
     if (job.data['email']) {
       const teacher = job.data['teacher'];
       const courseId = job.data['courseId'];
-      const url = `${this.configService.get<string>('app.port')}/${courseId}`;
+      const url = `${this.configService.get<string>(
+        'app.url',
+      )}/scores?course_id=${courseId}`;
       const data = { url };
 
       this.mailService.sendMail(
