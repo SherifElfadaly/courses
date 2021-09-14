@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Course } from './entities/course.entity';
 import { Queue } from 'bull';
@@ -28,6 +28,9 @@ export class CoursesService {
     const user = await this.userService.find(userId);
     const teacher = await user.teacher;
     const course = await this.find(courseId);
+    if (!course) {
+      throw new NotFoundException('course not found');
+    }
     const workbook = XLSX.read(sheet.buffer, { type: 'buffer' });
     const sheetName = workbook.SheetNames[0];
     const grades = XLSX.utils.sheet_to_json(workbook.Sheets[sheetName]);

@@ -7,6 +7,11 @@ import { Repository } from 'typeorm';
 import { CreateScoreDto } from './dto/create-score.dto';
 import { ImportGradesDto } from './dto/import-grades.dto';
 import { Score } from './entities/score.entity';
+import {
+  paginate,
+  Pagination,
+  IPaginationOptions,
+} from 'nestjs-typeorm-paginate';
 
 @Injectable()
 export class ScoresService {
@@ -16,10 +21,13 @@ export class ScoresService {
     private studentsService: StudentsService,
   ) {}
 
-  findAll(conditions?: Array<string | number>): Promise<Score[]> {
+  findAll(
+    options: IPaginationOptions,
+    conditions?: Array<string | number>,
+  ): Promise<Pagination<Score>> {
     const where = this.constructWhereConditionsArray(conditions);
 
-    return this.scoresRepository.find({
+    return paginate<Score>(this.scoresRepository, options, {
       relations: ['course', 'student'],
       where: where,
     });

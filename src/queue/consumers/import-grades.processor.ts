@@ -19,7 +19,7 @@ export class ImportGradesProcessor {
       job.data['grades'],
       job,
     );
-  
+
     if (job.data['email']) {
       const teacher = job.data['teacher'];
       const courseCode = job.data['course'].code;
